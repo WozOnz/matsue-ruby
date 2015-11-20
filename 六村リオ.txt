@@ -1,0 +1,19 @@
+my $lines = <STDIN>;
+my $coffee = 0;
+my $water = 0;
+for ( $i = 0; $i < int($lines); $i++)
+{
+    my $input = <STDIN>;
+    my @s = split(/\s/,$input);
+    my $mod = int($s[0]);
+    if ($mod == 1) { $water += int($s[1]); }
+    if ($mod == 2) { $coffee += int($s[1]); }    
+    if ($mod == 3)
+    {
+        my $total = $coffee + $water;
+        my $drink = int($s[1]);
+        $water  = $water  - $drink*$water/$total;
+        $coffee = $coffee - $drink*$coffee/$total;
+    }
+}
+print int(100*$coffee/($water+$coffee)) . qq(\n);

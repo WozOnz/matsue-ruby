@@ -1,0 +1,23 @@
+my $masulen = <STDIN>;
+my $masutmp = <STDIN>;
+my @masu = split(/\s/,$masutmp);
+my $lines = <STDIN>;
+for ( $i = 0; $i < int($lines); $i++)
+{
+    my $input = <STDIN>;
+    $input = int($input);
+    my $count = 0;
+    while (1)
+    {
+        if($input > $masulen){ print qq(No\n); last; }
+        if($masu[int($input)] eq 0)
+        {
+            if($input == $masulen -1){ print qq(Yes\n); }else{ print qq(No\n); }
+            last;
+        }else{
+            $input += $masu[int($input)];
+        }
+        $count ++;
+        if($count > $masulen){ print qq(No\n); last; }      
+    }
+}

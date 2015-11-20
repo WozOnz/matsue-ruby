@@ -1,0 +1,56 @@
+my $count = <STDIN>;
+my @wstrs = ();
+for($i = 0; $i < $count; $i++)
+{
+  my $s = <STDIN>;
+  chomp($s);
+  push(@wstrs, $s);
+}
+@wstrs = sort { $a cmp $b } @wstrs;
+
+my $word_s = "";
+my $word_e = "";
+my $center = "";
+&makekaibun(@wstrs);
+print $word_s . $center . $word_e . qq(\n);
+
+sub makekaibun
+{
+    my $first = shift;
+    my @strs  = @_;
+    my $keywd = &kaibun($first);  
+    my $flg = &in_array($keywd, @strs);   
+    if($flg != 0)
+    {
+        $word_s .= $first;
+        $word_e = $keywd . $word_e;
+        splice( @strs, $flg -1, 1 );
+        if (@strs) { &makekaibun(@strs); }
+    }else{    
+        if ($first eq $keywd)
+        {
+            if ($center eq "")
+            {
+                $center = $first;
+            }else{
+                if($center eq $first){ $center .= $first; }
+            }
+        }
+        if(@strs){ &makekaibun(@strs); }
+    }
+}
+
+sub in_array
+{
+    my $item = shift;
+    my @list = @_;
+    my $len = 1;
+    for(@list){ return $len if $_ eq $item; $len ++; }
+    return 0;
+}
+
+sub kaibun
+{
+    my @temp = split(//,$_[0]);
+    return join("" , reverse @temp) ;
+}

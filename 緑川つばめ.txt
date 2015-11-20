@@ -1,0 +1,4 @@
+my $com = <STDIN>;
+my $num = int($com);
+my @s = split(//,$com);
+print $num + int($s[0]) + int($s[1]) .qq(\n);
